@@ -1,0 +1,10 @@
+{
+    "run_list": [
+        "recipe[canvas::apt-sources]"
+      , "recipe[canvas::git]"
+      , "recipe[canvas::coffeescript]"
+      , "recipe[rvm::system]"
+      //, "recipe[canvas::ruby]"
+      , "recipe[canvas]"
+    ]
+}
