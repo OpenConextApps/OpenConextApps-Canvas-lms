@@ -13,6 +13,7 @@
     },
     "run_list": [
         "recipe[canvas::apt-sources]"
+      , "recipe[mysql::server]"
       , "recipe[canvas::git]"
       , "recipe[canvas::coffeescript]"
       , "recipe[rvm::system]"
