@@ -1,3 +1,9 @@
 [submodule "cookbooks/rvm"]
 	path = cookbooks/rvm
 	url = https://github.com/fnichol/chef-rvm.git
+[submodule "cookbooks/mysql"]
+	path = cookbooks/mysql
+	url = https://github.com/opscode-cookbooks/mysql.git
+[submodule "cookbooks/openssl"]
+	path = cookbooks/openssl
+	url = https://github.com/opscode-cookbooks/openssl.git
