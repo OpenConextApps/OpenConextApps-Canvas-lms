@@ -17,6 +17,7 @@
       , "recipe[canvas::git]"
       , "recipe[canvas::coffeescript]"
       , "recipe[rvm::system]"
+      , "recipe[canvas::db]"
       , "recipe[canvas]"
     ]
 }

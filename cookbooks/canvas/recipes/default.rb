@@ -1,4 +1,4 @@
-%w{"zlib1g-dev" "libxml2-dev" "libxslt-dev" "libsqlite3-dev" "libhttpclient-ruby" "imagemagick"}.each { |p|
+%w{"zlib1g-dev" "libxml2-dev" "libxslt-dev" "libhttpclient-ruby" "imagemagick"}.each { |p|
     package p do
         action :install
     end

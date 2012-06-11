@@ -17,6 +17,7 @@ It contains a file `runlist.json` which can be used when Vagrant has started the
 
 * Install under a different user (currently root)
 * Do we really need the coffeescript recipe?
+* Whole word grep in user and db exists functions
 
 ## Reference
 
