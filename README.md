@@ -4,7 +4,8 @@
 
 ## Install Canvas with Chef and Vagrant
 
-    gem install vagrant
+    gem install vagrant (or use the supplied .rvmrc file when using RVM)
+    git submodule update
     vagrant up
 
 The directory `shared` is mapped to the shared folder in the vagrant home dir.
