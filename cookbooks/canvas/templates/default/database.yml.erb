@@ -1,0 +1,16 @@
+test:
+  adapter: mysql
+  encoding: utf8
+  database: <%= node[:canvas][:db][:name] %>
+  host: localhost
+  username: <%= node[:canvas][:db][:user] %>
+  password: <%= node[:canvas][:db][:password] %>
+  timeout: 5000
+  queue:
+    adapter: mysql
+    encoding: utf8
+    database: <%= node[:canvas][:queue_db][:name] %>
+    host: localhost
+    username: <%= node[:canvas][:db][:user] %>
+    password: <%= node[:canvas][:db][:password] %>
+    timeout: 5000
