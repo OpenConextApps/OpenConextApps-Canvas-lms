@@ -5,7 +5,8 @@
 ## Install Canvas with Chef and Vagrant
 
 ### Install Vagrant
-Grep your os specific package from [Vagrant](http://downloads.vagrantup.com/).
+Vagrant depends on VirtualBox. You can download it from [here](http://www.virtualbox.org/wiki/Downloads).  
+To install Vagrant download your os specific package from [Vagrant](http://downloads.vagrantup.com/).
 Or as alternative (though the previous method is preferred).
 
     gem install vagrant (or use the supplied .rvmrc file when using RVM)
