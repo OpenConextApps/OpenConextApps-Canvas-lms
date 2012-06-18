@@ -1,10 +1,12 @@
+default[:canvas][:user] = "canvas"
+default[:canvas][:group] = "canvas"
+
 default[:canvas][:db][:name] = "canvas"
 default[:canvas][:db][:user] = "canvas"
 default[:canvas][:db][:password] = "canvas"
 default[:canvas][:queue_db][:name] = "canvas_queue"
 
-default[:canvas][:ruby][:version] = "1.8.7"
-default[:canvas][:ruby][:gemset] = "canvas"
+default[:canvas][:ruby][:env] = "test"
 
 default[:canvas][:smtp][:host] = "localhost"
 default[:canvas][:smtp][:port] = "25"

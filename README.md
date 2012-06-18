@@ -37,13 +37,12 @@ After the vm has started and the cookbooks ran you should be able to start canva
 
 ## Improvements/todo
 
+* Add /var/lib/ruby/1.8/gems... to PATH variable
 * Connect to SURFconext
-* Use Passenger
 * Use SSL certificate
 * Install on real vm
-* Install under a different user (currently root)
+* Pin version of ruby (1.8.7)
 * Whole word grep in user and db exists functions
-* Make the environment a variable in attributes
 * Security.yml encryption_key is overwritten (only test??), do we need to create security.yml?
 * Config files needed?
     * delayed-jobs

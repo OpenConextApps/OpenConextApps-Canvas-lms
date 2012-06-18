@@ -32,65 +32,24 @@ Vagrant::Config.run do |config|
   config.vm.share_folder "cookbooks", "/var/chef/cookbooks", "cookbooks"
   config.vm.share_folder "shared", "/home/vagrant/shared", "shared"
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding 
-  # some recipes and/or roles.
-  #
   config.vm.provision :chef_solo do |chef|
-    #chef.recipe_url = "http://files.vagrantup.com/getting_started/cookbooks.tar.gz"
-    #chef.add_recipe("vagrant_main")
 
-    # to add git client
     chef.cookbooks_path = "cookbooks"
-    %w[canvas::apt-sources canvas::git canvas::coffeescript mysql::server rvm::system java canvas::db canvas].each { |r|
+    %w[canvas::apt-sources
+       canvas::git
+       canvas::coffeescript
+       canvas::ruby
+       mysql::server
+       java
+       canvas::db
+       canvas].each { |r|
       chef.add_recipe r
     }
 
     chef.json.merge!({
-      :rvm => {
-        :default_ruby => "ruby-1.8.7",
-        :rvmrc => {
-          :rvm_install_on_use_flag => 1,
-          :rvm_project_rvmrc => 1,
-          :rvm_gemset_create_on_use_flag => 1,
-          :rvm_trust_rvmrcs_flag => 1
-        }
-      },
+      :passenger => { :root_path => "/var/lib/gems/1.8/gems/passenger-3.0.11" },
       :mysql => { :server_root_password => "secret" }
     })
   end
 
-  # config.vm.provision :chef_solo do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
-  #
-  #   # You may also specify custom JSON attributes:
-  #   chef.json = { :mysql_password => "foo" }
-  # end
-
-  # Enable provisioning with chef server, specifying the chef server URL,
-  # and the path to the validation key (relative to this Vagrantfile).
-  #
-  # The Opscode Platform uses HTTPS. Substitute your organization for
-  # ORGNAME in the URL and validation key.
-  #
-  # If you have your own Chef Server, use the appropriate URL, which may be
-  # HTTP instead of HTTPS depending on your configuration. Also change the
-  # validation key to validation.pem.
-  #
-  # config.vm.provision :chef_client do |chef|
-  #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
-  #   chef.validation_key_path = "ORGNAME-validator.pem"
-  # end
-  #
-  # If you're using the Opscode platform, your validator client is
-  # ORGNAME-validator, replacing ORGNAME with your organization name.
-  #
-  # IF you have your own Chef Server, the default validation client name is
-  # chef-validator, unless you changed the configuration.
-  #
-  #   chef.validation_client_name = "ORGNAME-validator"
 end

@@ -1,75 +1,61 @@
-include_recipe "passenger_apache2"
+include_recipe "passenger_apache2::mod_rails"
 
-%w{"zlib1g-dev" "libxml2-dev" "libxslt-dev" "libhttpclient-ruby" "imagemagick" "libcurl3-dev"}.each { |p|
-    package p do
-        action :install
-    end
+%w[zlib1g-dev libxml2-dev libxslt-dev libhttpclient-ruby imagemagick libcurl3-dev].each { |p|
+    package p
 }
+
+group node[:canvas][:group]
+
+user node[:canvas][:user] do
+    comment "Canvas LMS User"
+    gid "canvas"
+    home "/opt/canvas"
+    shell "/bin/false"
+end
 
 execute "clone-canvas-repo" do
     user "root"
-    command "git clone https://github.com/instructure/canvas-lms.git /opt/canvas"
+    command "git clone https://github.com/instructure/canvas-lms.git /opt/canvas && chown -R canvas:canvas /opt/canvas"
     creates "/opt/canvas"
 end
 
-template "/opt/canvas/.rvmrc" do
-    source "rvmrc"
-    mode "0644"
-end
-
-gem_package "bundler" do
-    action :install
-end
-
-rvm_shell "bundle-install" do
+execute "bundle-install" do
     user "root"
-    ruby_string "#{node[:canvas][:ruby][:version]}@#{node[:canvas][:ruby][:gemset]}"
     cwd "/opt/canvas"
-    code "bundle install --without postgres"
+    command "bundle install --without postgres"
 end
 
-template "/opt/canvas/config/database.yml" do
-    source "database.yml.erb"
-end
+%w[database.yml outgoing_mail.yml security.yml domain.yml].each { |config_file|
+    template "/opt/canvas/config/" + config_file do
+        owner node[:canvas][:user]
+        group node[:canvas][:group]
+        mode "0640"
+        source config_file + ".erb"
+    end
+}
 
-template "/opt/canvas/config/outgoing_mail.yml" do
-    source "outgoing_mail.yml.erb"
-end
-
-template "/opt/canvas/config/security.yml" do
-    source "security.yml.erb"
-    action :create_if_missing
-end
-
-template "/opt/canvas/config/domain.yml" do
-    source "domain.yml.erb"
-end
-
-rvm_shell "Canvas initial setup" do
-    user "root"
-    ruby_string "#{node[:canvas][:ruby][:version]}@#{node[:canvas][:ruby][:gemset]}"
+bash "Canvas initial setup" do
+    user node[:canvas][:user]
     cwd "/opt/canvas"
-    code "RAILS_ENV=test bundle exec rake db:initial_setup"
+    code "RAILS_ENV=#{node[:canvas][:ruby][:env]} rake db:initial_setup"
     not_if "test `mysql -uroot -p#{node[:mysql][:server_root_password]} -D#{node[:canvas][:db][:name]} -e 'show tables' | tail -n +2 | wc -l` -gt 0"
 end
 
-rvm_shell "Create admin user" do
-    user "root"
-    ruby_string "#{node[:canvas][:ruby][:version]}@#{node[:canvas][:ruby][:gemset]}"
+bash "Create admin user" do
+    user node[:canvas][:user]
     cwd "/opt/canvas"
-    code "RAILS_ENV=test CANVAS_LMS_ADMIN_EMAIL=#{node[:canvas][:admin][:email]} CANVAS_LMS_ADMIN_PASSWORD=#{node[:canvas][:admin][:password]} bundle exec rake db:configure_admin"
+    code "RAILS_ENV=#{node[:canvas][:ruby][:env]} CANVAS_LMS_ADMIN_EMAIL=#{node[:canvas][:admin][:email]} CANVAS_LMS_ADMIN_PASSWORD=#{node[:canvas][:admin][:password]} rake db:configure_admin"
 end
 
-rvm_shell "compile assets" do
-    user "root"
-    ruby_string "#{node[:canvas][:ruby][:version]}@#{node[:canvas][:ruby][:gemset]}"
+execute "compile assets" do
+    user node[:canvas][:user]
     cwd "/opt/canvas"
-    code "bundle exec rake canvas:compile_assets"
+    command "rake canvas:compile_assets"
 end
 
 web_app "canvas" do
-    docroot "/opt/canvas"
+    docroot "/opt/canvas/public"
     server_name "canvas.#{node[:hostname]}"
     server_aliases [ node[:hostname] ]
-    rails_env "test"
+    rails_env "#{node[:canvas][:ruby][:env]}"
 end
