@@ -38,8 +38,8 @@ Vagrant::Config.run do |config|
     %w[canvas::apt-sources
        java
        canvas::ruby
-       canvas::db
        canvas::coffeescript
+       canvas::db
        canvas].each { |r|
       chef.add_recipe r
     }
