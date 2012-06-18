@@ -36,12 +36,10 @@ Vagrant::Config.run do |config|
 
     chef.cookbooks_path = "cookbooks"
     %w[canvas::apt-sources
-       canvas::git
-       canvas::coffeescript
-       canvas::ruby
-       mysql::server
        java
+       canvas::ruby
        canvas::db
+       canvas::coffeescript
        canvas].each { |r|
       chef.add_recipe r
     }

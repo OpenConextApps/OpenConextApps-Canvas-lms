@@ -1,3 +1,5 @@
+include_recipe "mysql::server"
+
 ::Chef::Resource::Bash.send(:include, SURFnet::Canvas::Helpers)
 
 bash "create database user" do

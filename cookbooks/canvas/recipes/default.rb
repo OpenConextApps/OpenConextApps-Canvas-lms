@@ -1,3 +1,4 @@
+include_recipe "git"
 include_recipe "passenger_apache2::mod_rails"
 
 %w[zlib1g-dev libxml2-dev libxslt-dev libhttpclient-ruby imagemagick libcurl3-dev].each { |p|
