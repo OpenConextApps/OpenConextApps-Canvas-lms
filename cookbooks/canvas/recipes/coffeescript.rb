@@ -1,4 +1,6 @@
-%w{"build-essential" "curl"}.each { |p|
+include_recipe "build-essential"
+
+%w{"curl"}.each { |p|
     package p do
         action [:install]
     end
@@ -6,7 +8,7 @@
 
 execute "checkout-node" do
     command "git clone https://github.com/joyent/node.git /opt/node"
-    creates "/opt/node" 
+    creates "/opt/node"
 end
 
 execute "install-node" do

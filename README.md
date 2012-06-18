@@ -37,16 +37,22 @@ After the vm has started and the cookbooks ran you should be able to start canva
 
 ## Improvements/todo
 
+* Connect to SURFconext
+* Use Passenger
+* Use SSL certificate
+* Install on real vm
 * Install under a different user (currently root)
-* Do we really need the coffeescript recipe?
 * Whole word grep in user and db exists functions
-* Can execute resource be used instead of bash in db.rb
 * Make the environment a variable in attributes
-* Maybe add a not_if to fill database intial_setup of db
-* Security possibility to randomize encryption_key
-* Security.yml encryption_key is overwritten (only test??)
+* Security.yml encryption_key is overwritten (only test??), do we need to create security.yml?
+* Config files needed?
+    * delayed-jobs
+    * file-store
+    * ext_migration
+* Can execute resource be used instead of bash in db.rb
+* Do we really need the coffeescript recipe?
 * Add more CPUs to Vagrant
-* Config: delayed-jobs, file-store, ext_migration
+* Beat Sander with fußball
 
 ## Reference
 

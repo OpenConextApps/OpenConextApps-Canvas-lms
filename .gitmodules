@@ -10,3 +10,12 @@
 [submodule "cookbooks/java"]
 	path = cookbooks/java
 	url = https://github.com/opscode-cookbooks/java.git
+[submodule "cookbooks/passenger_apache2"]
+	path = cookbooks/passenger_apache2
+	url = https://github.com/opscode-cookbooks/passenger_apache2.git
+[submodule "cookbooks/apache2"]
+	path = cookbooks/apache2
+	url = https://github.com/opscode-cookbooks/apache2.git
+[submodule "cookbooks/build-essential"]
+	path = cookbooks/build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git

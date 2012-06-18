@@ -24,7 +24,6 @@ Vagrant::Config.run do |config|
   # Forward a port from the guest to the host, which allows for outside
   # computers to access the VM, whereas host only networking does not.
   config.vm.forward_port(80, 8080)
-  config.vm.forward_port(22, 2222)
   config.vm.forward_port(3000, 3000)
 
   # Share an additional folder to the guest VM. The first argument is
@@ -43,15 +42,22 @@ Vagrant::Config.run do |config|
 
     # to add git client
     chef.cookbooks_path = "cookbooks"
-    %w[canvas::apt-sources].each { |r|
-       chef.add_recipe r
+    %w[canvas::apt-sources canvas::git canvas::coffeescript mysql::server rvm::system java canvas::db canvas].each { |r|
+      chef.add_recipe r
     }
 
-    #chef.json.merge!(
-    #   { :postgresql =>
-    #      { :password => { :postgres => "secure" } }
-    #})
-
+    chef.json.merge!({
+      :rvm => {
+        :default_ruby => "ruby-1.8.7",
+        :rvmrc => {
+          :rvm_install_on_use_flag => 1,
+          :rvm_project_rvmrc => 1,
+          :rvm_gemset_create_on_use_flag => 1,
+          :rvm_trust_rvmrcs_flag => 1
+        }
+      },
+      :mysql => { :server_root_password => "secret" }
+    })
   end
 
   # config.vm.provision :chef_solo do |chef|
