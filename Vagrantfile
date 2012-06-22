@@ -21,8 +21,6 @@ Vagrant::Config.run do |config|
   # physical device on your network.
   # config.vm.network :bridged
 
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
   config.vm.forward_port(80, 8080)
   config.vm.forward_port(3000, 3000)
 
@@ -34,19 +32,36 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
 
+        #canvas::ruby
+        #canvas
+        #java
+        #canvas::coffeescript
+
     chef.cookbooks_path = "cookbooks"
-    %w[canvas::apt-sources
-       java
-       canvas::ruby
-       canvas::coffeescript
-       canvas::db
-       canvas].each { |r|
+    %w{
+        canvas::apt-sources
+        ruby_build
+        rbenv::system
+        passenger_apache2::mod_rails
+        canvas
+    }.each { |r|
       chef.add_recipe r
     }
 
     chef.json.merge!({
-      :passenger => { :root_path => "/var/lib/gems/1.8/gems/passenger-3.0.11" },
-      :mysql => { :server_root_password => "secret" }
+        :rbenv => {
+            :global => "1.8.7-p358",
+            :rubies => [ "1.8.7-p358" ],
+            :gems => {
+                "1.8.7-p358" => [
+                    { :name => "bundler" }
+                ]
+            }
+        },
+        :passenger => {
+            :version => "3.0.13"
+        },
+        :mysql => { :server_root_password => "secret" }
     })
   end
 

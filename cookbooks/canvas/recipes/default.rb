@@ -1,5 +1,7 @@
 include_recipe "git"
-include_recipe "passenger_apache2::mod_rails"
+include_recipe "java"
+include_recipe "canvas::coffeescript"
+include_recipe "canvas::db"
 
 %w[zlib1g-dev libxml2-dev libxslt-dev libhttpclient-ruby imagemagick libcurl3-dev].each { |p|
     package p
@@ -20,10 +22,9 @@ execute "clone-canvas-repo" do
     creates "/opt/canvas"
 end
 
-execute "bundle-install" do
-    user "root"
+rbenv_script "bundle-install" do
     cwd "/opt/canvas"
-    command "bundle install --without postgres"
+    code "bundle install --without postgres"
 end
 
 %w[database.yml outgoing_mail.yml security.yml domain.yml].each { |config_file|
@@ -35,23 +36,20 @@ end
     end
 }
 
-bash "Canvas initial setup" do
-    user node[:canvas][:user]
+rbenv_script "Canvas initial setup" do
     cwd "/opt/canvas"
     code "RAILS_ENV=#{node[:canvas][:ruby][:env]} rake db:initial_setup"
     not_if "test `mysql -uroot -p#{node[:mysql][:server_root_password]} -D#{node[:canvas][:db][:name]} -e 'show tables' | tail -n +2 | wc -l` -gt 0"
 end
 
-bash "Create admin user" do
-    user node[:canvas][:user]
+rbenv_script "Create admin user" do
     cwd "/opt/canvas"
     code "RAILS_ENV=#{node[:canvas][:ruby][:env]} CANVAS_LMS_ADMIN_EMAIL=#{node[:canvas][:admin][:email]} CANVAS_LMS_ADMIN_PASSWORD=#{node[:canvas][:admin][:password]} rake db:configure_admin"
 end
 
-execute "compile assets" do
-    user node[:canvas][:user]
+rbenv_script "compile assets" do
     cwd "/opt/canvas"
-    command "rake canvas:compile_assets"
+    code "rake canvas:compile_assets"
 end
 
 web_app "canvas" do
