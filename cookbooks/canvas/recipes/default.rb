@@ -29,6 +29,7 @@ end
 
 %w[database.yml outgoing_mail.yml security.yml domain.yml].each { |config_file|
     template "/opt/canvas/config/" + config_file do
+        action :create_if_missing
         owner node[:canvas][:user]
         group node[:canvas][:group]
         mode "0640"
