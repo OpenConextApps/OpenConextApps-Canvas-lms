@@ -13,7 +13,7 @@ module SURFnet
             def create_user(username, password)
                 run_as_mysql_root("create user '#{username}'@'localhost' identified by '#{password}'")
             end
-            
+
             def create_database(database, username)
                 script = ""
                 script << run_as_mysql_root("create database #{database}") << "\n"
