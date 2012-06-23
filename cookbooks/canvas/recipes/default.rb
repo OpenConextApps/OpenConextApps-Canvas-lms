@@ -1,5 +1,7 @@
-include_recipe "git"
 include_recipe "java"
+include_recipe "ruby_build"
+include_recipe "rbenv::system"
+include_recipe "passenger_apache2::mod_rails"
 include_recipe "canvas::coffeescript"
 include_recipe "canvas::db"
 

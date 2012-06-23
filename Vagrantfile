@@ -32,17 +32,10 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
 
-        #canvas::ruby
-        #canvas
-        #java
-        #canvas::coffeescript
 
     chef.cookbooks_path = "cookbooks"
     %w{
         canvas::apt-sources
-        ruby_build
-        rbenv::system
-        passenger_apache2::mod_rails
         canvas
     }.each { |r|
       chef.add_recipe r
@@ -59,6 +52,8 @@ Vagrant::Config.run do |config|
             }
         },
         :passenger => {
+            :root_path => "/usr/local/rbenv/versions/1.8.7-p358/lib/ruby/gems/1.8/gems/passenger-3.0.13",
+            :ruby_bin => "/usr/local/rbenv/versions/1.8.7-p358/bin/ruby",
             :version => "3.0.13"
         },
         :mysql => { :server_root_password => "secret" }
