@@ -42,7 +42,6 @@ After the vm has started and the cookbooks ran you should be able to start canva
 * Use SSL certificate
 * Use [Databse cookbook](https://github.com/opscode-cookbooks/database) for databse
 * Install on real vm
-* Remove Git cookbook (git installed by rbenv)
 * Pin version of ruby (1.8.7)
 * Whole word grep in user and db exists functions
 * Security.yml encryption_key is overwritten (only test??), do we need to create security.yml?
