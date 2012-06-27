@@ -28,7 +28,6 @@ Vagrant::Config.run do |config|
   # an identifier, the second is the path on the guest to mount the
   # folder, and the third is the path on the host to the actual folder.
   config.vm.share_folder "cookbooks", "/var/chef/cookbooks", "cookbooks"
-  config.vm.share_folder "shared", "/home/vagrant/shared", "shared"
 
   config.vm.provision :chef_solo do |chef|
 
