@@ -1,3 +1,5 @@
+default[:canvas][:dir] = "/opt/canvas"
+
 default[:canvas][:user] = "canvas"
 default[:canvas][:group] = "canvas"
 
@@ -22,5 +24,14 @@ default[:canvas][:security][:encryption_key] = "1234567890"
 
 default[:canvas][:admin][:email] = "avandam@zilverline.com"
 default[:canvas][:admin][:password] = "secret"
+
+default[:canvas][:auth][:saml][:entity_id] = "http://localhost:3000/saml2"
+default[:canvas][:auth][:saml][:contact_name] = "Alan van Dam"
+default[:canvas][:auth][:saml][:contact_email] = "avandam+saml@Alan van Dam"
+default[:canvas][:auth][:saml][:xmlsec_bin] = "/usr/local/bin/xmlsec1"
+default[:canvas][:auth][:saml][:private_key] = "#{canvas['dir']}/config/samlkey.pem"
+default[:canvas][:auth][:saml][:certificate] = "#{canvas['dir']}/config/samlcert.pem"
+
+
 
 default[:canvas][:domain] = "localhost"

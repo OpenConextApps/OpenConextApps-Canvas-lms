@@ -14,23 +14,23 @@ group node[:canvas][:group]
 user node[:canvas][:user] do
     comment "Canvas LMS User"
     gid "canvas"
-    home "/opt/canvas"
+    home node[:canvas][:dir]
     shell "/bin/false"
 end
 
 execute "clone-canvas-repo" do
     user "root"
-    command "git clone https://github.com/instructure/canvas-lms.git /opt/canvas && chown -R canvas:canvas /opt/canvas"
-    creates "/opt/canvas"
+    command "git clone https://github.com/instructure/canvas-lms.git #{node[:canvas][:dir]} && chown -R #{node[:canvas][:user]}:#{node[:canvas][:group]} #{node[:canvas][:dir]}"
+    creates node[:canvas][:dir]
 end
 
 rbenv_script "bundle-install" do
-    cwd "/opt/canvas"
+    cwd node[:canvas][:dir]
     code "bundle install --without postgres"
 end
 
-%w[database.yml outgoing_mail.yml security.yml domain.yml].each { |config_file|
-    template "/opt/canvas/config/" + config_file do
+%w[database.yml outgoing_mail.yml security.yml domain.yml saml.yml].each { |config_file|
+    template "#{node[:canvas][:dir]}/config/" + config_file do
         action :create_if_missing
         owner node[:canvas][:user]
         group node[:canvas][:group]
@@ -40,23 +40,23 @@ end
 }
 
 rbenv_script "Canvas initial setup" do
-    cwd "/opt/canvas"
+    cwd node[:canvas][:dir]
     code "RAILS_ENV=#{node[:canvas][:ruby][:env]} rake db:initial_setup"
     not_if "test `mysql -uroot -p#{node[:mysql][:server_root_password]} -D#{node[:canvas][:db][:name]} -e 'show tables' | tail -n +2 | wc -l` -gt 0"
 end
 
 rbenv_script "Create admin user" do
-    cwd "/opt/canvas"
+    cwd node[:canvas][:dir]
     code "RAILS_ENV=#{node[:canvas][:ruby][:env]} CANVAS_LMS_ADMIN_EMAIL=#{node[:canvas][:admin][:email]} CANVAS_LMS_ADMIN_PASSWORD=#{node[:canvas][:admin][:password]} rake db:configure_admin"
 end
 
 rbenv_script "compile assets" do
-    cwd "/opt/canvas"
+    cwd node[:canvas][:dir]
     code "rake canvas:compile_assets"
 end
 
 web_app "canvas" do
-    docroot "/opt/canvas/public"
+    docroot "#{node[:canvas][:dir]}/public"
     server_name "canvas.#{node[:hostname]}"
     server_aliases [ node[:hostname] ]
     rails_env "#{node[:canvas][:ruby][:env]}"
