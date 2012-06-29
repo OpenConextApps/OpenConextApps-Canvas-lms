@@ -29,7 +29,7 @@ rbenv_script "bundle-install" do
     code "bundle install --without postgres"
 end
 
-%w[database.yml outgoing_mail.yml security.yml domain.yml saml.yml].each { |config_file|
+%w[database.yml outgoing_mail.yml security.yml domain.yml delayed_jobs.yml file_store.yml external_migration.yml saml.yml].each { |config_file|
     template "#{node[:canvas][:dir]}/config/" + config_file do
         action :create_if_missing
         owner node[:canvas][:user]

@@ -1,6 +1,6 @@
 # Canvas
 
-[Canvas](https://github.com/instructure/canvas-lms) on Github
+[Canvas][canvas] can also be found on [Github][canvas-github].
 
 ## Install Canvas with Chef and Vagrant
 
@@ -15,20 +15,28 @@ To install Vagrant download your os specific package from [Vagrant](http://downl
     git submodule update
     vagrant up
 
-After the VM is running and all the Chef Cookbooks ran you could suspend your vm.
+After the VM has started and all the Chef cookbooks completed, you could suspend your vm.
 
     vagrant suspend
 
-And to start the vm again
+And to start the vm again.
 
     vagrant resume
 
-Running the recipes again
+Running the recipes again.
 
     vagrant provision
 
-### Start canvas
-After the vm has started and the cookbooks ran you should be able to start canvas `cd /opt/canvas;RAILS_ENV=test scripts/server` and access it on [http://localhost:3000](http://localhost:3000).
+### Conect to SURFconext
+After the Vagrant virtual machine is running, your canvas should be ready to use SURFconext.
+
+* saml.yml should be configured
+* Add authorization with fingerprint and entity-id
+
+### Access canvas
+Once the vm is running you can access the Canvas application on port 80, or outside of the vm on localhost port 8080.
+Because Canvas is running as a virtual host in apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default),
+so you can access Canvas as <http://canvas.lucid32:8080>.
 
 ## Improvements/todo
 
@@ -36,10 +44,6 @@ After the vm has started and the cookbooks ran you should be able to start canva
 * Use SSL certificate
 * Install on real vm
 * Whole word grep in user and db exists functions
-* Config files needed?
-    * delayed-jobs
-    * file-store
-    * ext_migration
 * Can execute resource be used instead of bash in db.rb
     * Maybe write own resource/provider for create user and datbase
 * Beat Sander with fußball
@@ -48,3 +52,6 @@ After the vm has started and the cookbooks ran you should be able to start canva
 
 * [Vagrant](http://vagrantup.com)
 * [Chef](http://www.opscode.com/chef)
+
+[canvas]: http://www.instructure.com
+[canvas-github]: https://github.com/instructure/canvas-lms
