@@ -1,4 +1,5 @@
 default[:canvas][:dir] = "/opt/canvas"
+default[:canvas][:host] = "canvas.#{node['hostname']}"
 
 default[:canvas][:user] = "canvas"
 default[:canvas][:group] = "canvas"

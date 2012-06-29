@@ -57,7 +57,7 @@ end
 
 web_app "canvas" do
     docroot "#{node[:canvas][:dir]}/public"
-    server_name "canvas.#{node[:hostname]}"
-    server_aliases [ node[:hostname] ]
-    rails_env "#{node[:canvas][:ruby][:env]}"
+    server_aliases []
+    server_name node[:canvas][:host]
+    rails_env node[:canvas][:ruby][:env]
 end
