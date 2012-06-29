@@ -31,5 +31,8 @@ default[:canvas][:auth][:saml][:contact_email] = "avandam+saml@zilverline.com"
 default[:canvas][:auth][:saml][:xmlsec_bin] = "/usr/local/bin/xmlsec1"
 default[:canvas][:auth][:saml][:private_key] = "#{canvas['dir']}/config/samlkey.pem"
 default[:canvas][:auth][:saml][:certificate] = "#{canvas['dir']}/config/samlcert.pem"
+default[:canvas][:auth][:saml][:logon_url] = "https://engine.test.surfconext.nl/authentication/idp/single-sign-on"
+default[:canvas][:auth][:saml][:login_attribute] = "NameID"
+default[:canvas][:auth][:saml][:identifier_format] = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
 
 default[:canvas][:domain] = "localhost"

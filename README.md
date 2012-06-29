@@ -38,6 +38,10 @@ Once the vm is running you can access the Canvas application on port 80, or outs
 Because Canvas is running as a virtual host in apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default),
 so you can access Canvas as <http://canvas.lucid32:8080>.
 
+Generate fingerprint of certificate
+
+    curl -s https://engine.test.surfconext.nl/authentication/idp/certificate | openssl x509 -noout -fingerprint | cut -d"=" -f2"
+
 ## Improvements/todo
 
 * Connect to SURFconext
