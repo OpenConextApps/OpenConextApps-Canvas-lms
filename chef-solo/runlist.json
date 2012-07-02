@@ -1,7 +1,12 @@
 {
     "run_list": [ "recipe[canvas]" ],
     "canvas": {
-        "host": "canvas.conext.surfnetlabs.nl"
+        "host": "canvas.conext.surfnetlabs.nl",
+        "ssl": {
+            "enabled": true,
+            "key": "openconext.key",
+            "cert": "openconext.crt"
+        }
     },
     "rbenv": {
         "global": "1.8.7-p358",

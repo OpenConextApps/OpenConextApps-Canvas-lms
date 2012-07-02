@@ -1,6 +1,12 @@
 default[:canvas][:dir] = "/opt/canvas"
 default[:canvas][:host] = "canvas.#{node['hostname']}"
 
+default[:canvas][:ssl][:enabled] = false
+#default[:canvas][:ssl][:key] = "#{node['apache']['dir']}/ssl/certificate.key"
+#default[:canvas][:ssl][:cert] = "#{node['apache']['dir']}/ssl/certificate.crt"
+default[:canvas][:ssl][:key] = "/etc/apache2/ssl/certificate.key"
+default[:canvas][:ssl][:cert] = "/etc/apache2/ssl/certificate.crt"
+
 default[:canvas][:user] = "canvas"
 default[:canvas][:group] = "canvas"
 

@@ -1,11 +1,18 @@
+<% if node[:canvas][:ssl][:enabled] %>
 <VirtualHost *:443>
+<% elsif %>
+<VirtualHost *:80>
+<% end %>
+
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
+  <% if node[:canvas][:ssl][:enabled] %>
   SSLEngine on
-  SSLCertificateKeyFile   /etc/apache2/ssl/openconext.key
-  SSLCertificateFile      /etc/apache2/ssl/openconext.crt
+  SSLCertificateKeyFile   <%= node[:canvas][:ssl][:key] %>
+  SSLCertificateFile      <%= node[:canvas][:ssl][:cert] %>
+  <% end %>
 
   RailsBaseURI /
   RailsEnv <%= @params[:rails_env] %>
