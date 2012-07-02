@@ -6,13 +6,16 @@ description
 version
 
 recipe "canvas::apt-sources", "Sets the ubuntu apt sources to the dutch archives"
-recipe "canvas::git", "Installs git"
 recipe "canvas::coffeescript", "Installs coffeescript"
 recipe "canvas::db", "Creates databases for Canvas LMS"
 recipe "canvas", "Installs Canvas LMS"
 
-#depends "mysql"
-#depends "java"
-#depends "passenger_apache2"
+depends "mysql"
+depends "java"
+depends "passenger_apache2"
+depends "apache2"
+depends "nodejs"
+depends "openssl"
 
 supports "ubuntu"
+supports "redhat"
