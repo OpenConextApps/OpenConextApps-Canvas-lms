@@ -61,3 +61,9 @@ web_app "canvas" do
     server_name node[:canvas][:host]
     rails_env node[:canvas][:ruby][:env]
 end
+
+bash "connect to surfconext" do
+    cwd node[:canvas][:dir]
+    fingerprint = %x{curl -s #{node[:canvas][:auth][:saml][:idp_certificate]} | openssl x509 -noout -fingerprint | cut -d"=" -f2}
+    code "script/runner -e #{node[:canvas][:ruby][:env]} \"AccountAuthorizationConfig.create(:account => Account.last, :auth_type => 'saml', :log_in_url => '#{node[:canvas][:auth][:saml][:logon_url]}', :identifier_format => '#{node[:canvas][:auth][:saml][:identifier_format]}', :certificate_fingerprint => '#{fingerprint}', :entity_id => '#{node[:canvas][:auth][:saml][:entity_id]}', :login_attribute => '#{node[:canvas][:auth][:saml][:login_attribute]}')\""
+end
