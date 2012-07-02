@@ -4,8 +4,8 @@
         "host": "canvas.conext.surfnetlabs.nl",
         "ssl": {
             "enabled": true,
-            "key": "openconext.key",
-            "cert": "openconext.crt"
+            "key": "/etc/apache2/ssl/openconext.key",
+            "cert": "/etc/apache2/ssl/openconext.crt"
         }
     },
     "rbenv": {
