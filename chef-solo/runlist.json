@@ -6,6 +6,11 @@
             "enabled": true,
             "key": "/etc/apache2/ssl/openconext.key",
             "cert": "/etc/apache2/ssl/openconext.crt"
+        },
+        "auth": {
+            "saml": {
+                "idp" = "https://engine.test.surfconext.nl"
+            }
         }
     },
     "rbenv": {
