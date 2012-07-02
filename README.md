@@ -40,16 +40,20 @@ The location of the consumer service of canvas is `https://[CANVAS_HOST]/saml_co
 
 ## 3: Access canvas
 Once the vm is running you can access the Canvas application on port 80, or outside of the vm on localhost port 8080.
-Because Canvas is running as a virtual host in Apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default),
-so you can access Canvas as <http://canvas.lucid32:8080> on your local machine.
+Because Canvas is running as a virtual host in Apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default).
+
+    $ cat /etc/hosts
+    127.0.0.1localhost canvas.lucid32
+
+Then it should be possilbe to go with your browser to <http://canvas.lucid32:8080> on your local machine and see the Canvas application.
+
+If you are not able to login to Canvas through SURFconext you can always use the admin user. Check the chef attrubutes `default[:canvas][:admin][:email]` and `default[:canvas][:admin][:password]` for the admin login credentials. You can then use these on the login page <http://canvas.lucid32:8080/login?canvas_login=1>.
 
 ## 4: Have fun!
 This should result in a smoothly running Canvas instance. For how to configure Canvas you can best take a look at the [Canvas documentation][canvas-wiki] itself. In case of questions about this project, please let us know.
 
 ## Noteworthy
 Canvas - by design - does not support automated provisioning of users. A user record should be created in the Canvas system before he can enter the LMS. This means that even though SURFConext (or a identity provider of your choice) can be used for federative logon your system administrator should first add this user to the Canvas database and define the user's role. Be sure when using SURFConext the user's login in Canvas should be identical to the user's FOOBAR in SURFConext.
-
-If you are not able to login to Canvas through SURFconext you can always use the admin user. Check the chef attrubutes `default[:canvas][:admin][:email]` and `default[:canvas][:admin][:password]` for the admin login credentials. You can then use these on the login page `https://[CANVAS_HOST]/login?canvas_login=1`.
 
 ## Running without Vagrant
 The project also contains a chef-solo directory. The directory contains a script `run.sh` which can be used to run chef-solo without using Vagrant. The `runlist.json` contains the recipe list and the overrides for the default attributes
