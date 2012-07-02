@@ -33,12 +33,32 @@ Running the recipes again.
 
     vagrant provision
 
-## 2: Connect to SURFconext
+## 2: Check your attributes
+
+Chef uses a set of attributes to configure the cookbooks. The default attributes can be found in `cookbooks/[cookbook_name]/attributes/default.rb`. You probably only want to look at the attributes of the Canvas cookbook (`cookbooks/canvas/attributes/default.rb`).
+
+### Running with Vagrant
+Overriding attributes while running Canvas with Vagrant can be done in the `Vagrantfile`.
+
+    chef.json.merge!({
+        :canvas => {
+            :db => {
+                :name => "canvas-test-db",
+                :password => "123456"
+            }
+        }
+        :mysql => { :server_root_password => "my_secret_password" }
+    })
+
+### Running with Chef Solo
+Overriding attributes while running Canvas with chef-solo can be done in your `runlist.json`. An example can be found in the chef-solo directory.
+
+## 3: Connect to SURFconext
 After the Vagrant virtual machine is running, your canvas should be ready to use SURFconext. Please contact the SURFconext team for what information to be able to successfully use SURFConext.
 
 The location of the consumer service of canvas is `https://[CANVAS_HOST]/saml_consume` and your connection id/entity id needs to be the same. Canvas entity id is a chef attribute `default[:canvas][:auth][:saml][:entity_id]`.
 
-## 3: Access canvas
+## 4: Access canvas
 Once the vm is running you can access the Canvas application on port 80, or outside of the vm on localhost port 8080.
 Because Canvas is running as a virtual host in Apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default).
 
@@ -49,7 +69,7 @@ Then it should be possilbe to go with your browser to <http://canvas.lucid32:808
 
 If you are not able to login to Canvas through SURFconext you can always use the admin user. Check the chef attrubutes `default[:canvas][:admin][:email]` and `default[:canvas][:admin][:password]` for the admin login credentials. You can then use these on the login page <http://canvas.lucid32:8080/login?canvas_login=1>.
 
-## 4: Have fun!
+## 5: Have fun!
 This should result in a smoothly running Canvas instance. For how to configure Canvas you can best take a look at the [Canvas documentation][canvas-wiki] itself. In case of questions about this project, please let us know.
 
 ## Noteworthy
