@@ -18,7 +18,6 @@ module SURFnet
                 script = ""
                 script << run_as_mysql_root("create database #{database}") << "\n"
                 script << run_as_mysql_root("grant all privileges on #{database}.* to '#{username}'@'localhost' with grant option")
-                puts script
                 script
             end
 
