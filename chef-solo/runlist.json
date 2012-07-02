@@ -9,7 +9,7 @@
         },
         "auth": {
             "saml": {
-                "idp" = "https://engine.test.surfconext.nl"
+                "idp": "https://engine.test.surfconext.nl"
             }
         }
     },
