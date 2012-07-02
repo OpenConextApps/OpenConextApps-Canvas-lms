@@ -3,11 +3,11 @@ module SURFnet
         module Helpers
 
             def database_exists?(database)
-                "/usr/bin/mysql -uroot -p#{node[:mysql][:server_root_password]} -e 'show databases' | grep #{database}"
+                "/usr/bin/mysql -uroot -p#{node[:mysql][:server_root_password]} -e 'show databases' | grep -w #{database}"
             end
 
             def user_exists?(user)
-                "/usr/bin/mysql -uroot -p#{node[:mysql][:server_root_password]} -e 'select user from mysql.user' | grep #{user}"
+                "/usr/bin/mysql -uroot -p#{node[:mysql][:server_root_password]} -e 'select user from mysql.user' | grep -w #{user}"
             end
 
             def create_user(username, password)

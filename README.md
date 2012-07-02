@@ -48,7 +48,6 @@ Generate fingerprint of certificate
 * Connect to SURFconext
 * Use SSL certificate
 
-* Whole word grep in user and db exists functions
 * Can execute resource be used instead of bash in db.rb
     * Maybe write own resource/provider for create user and datbase
 * Beat Sander with fußball
