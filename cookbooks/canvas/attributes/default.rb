@@ -1,9 +1,15 @@
+normal[:rbenv][:global] = "1.8.7-p358"
+normal[:rbenv][:rubies] = [ "1.8.7-p358" ]
+normal[:rbenv][:gems] = { "1.8.7-p358" => [ {"name" => "bundler"} ] }
+
+normal[:passenger][:root_path] = "/usr/local/rbenv/versions/1.8.7-p358/lib/ruby/gems/1.8/gems/passenger-3.0.13"
+normal[:passenger][:ruby_bin] = "/usr/local/rbenv/versions/1.8.7-p358/bin/ruby"
+normal[:passenger][:version] = "3.0.13"
+
 default[:canvas][:dir] = "/opt/canvas"
 default[:canvas][:host] = "canvas.#{node['hostname']}"
 
 default[:canvas][:ssl][:enabled] = false
-#default[:canvas][:ssl][:key] = "#{node['apache']['dir']}/ssl/certificate.key"
-#default[:canvas][:ssl][:cert] = "#{node['apache']['dir']}/ssl/certificate.crt"
 default[:canvas][:ssl][:key] = "/etc/apache2/ssl/certificate.key"
 default[:canvas][:ssl][:cert] = "/etc/apache2/ssl/certificate.crt"
 

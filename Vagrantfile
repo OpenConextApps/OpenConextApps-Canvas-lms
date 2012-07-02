@@ -41,20 +41,6 @@ Vagrant::Config.run do |config|
     }
 
     chef.json.merge!({
-        :rbenv => {
-            :global => "1.8.7-p358",
-            :rubies => [ "1.8.7-p358" ],
-            :gems => {
-                "1.8.7-p358" => [
-                    { :name => "bundler" }
-                ]
-            }
-        },
-        :passenger => {
-            :root_path => "/usr/local/rbenv/versions/1.8.7-p358/lib/ruby/gems/1.8/gems/passenger-3.0.13",
-            :ruby_bin => "/usr/local/rbenv/versions/1.8.7-p358/bin/ruby",
-            :version => "3.0.13"
-        },
         :mysql => { :server_root_password => "secret" }
     })
   end
