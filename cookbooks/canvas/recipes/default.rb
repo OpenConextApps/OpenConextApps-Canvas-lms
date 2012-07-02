@@ -71,4 +71,5 @@ bash "connect to surfconext" do
       script/runner -e #{node[:canvas][:ruby][:env]} "AccountAuthorizationConfig.create(:account => Account.last, :auth_type => 'saml', :log_in_url => '#{node[:canvas][:auth][:saml][:logon_url]}', :identifier_format => '#{node[:canvas][:auth][:saml][:identifier_format]}', :certificate_fingerprint => '$FINGERPRINT', :entity_id => '#{node[:canvas][:auth][:saml][:entity_id]}', :login_attribute => '#{node[:canvas][:auth][:saml][:login_attribute]}')"
     END_HEREDOC
     )
+    not_if "/usr/bin/mysql -uroot -p#{node[:mysql][:server_root_password]} -e 'select entity_id from #{node[:canvas][:db][:name]}.account_authorization_configs' | grep -w #{node[:canvas][:auth][:saml][:entity_id]}"
 end
