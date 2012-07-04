@@ -91,7 +91,7 @@ The project also contains a chef-solo directory. The directory contains a script
 [canvas]: http://www.instructure.com
 [canvas-github]: https://github.com/instructure/canvas-lms
 [canvas-wiki]: https://github.com/instructure/canvas-lms/wiki
-[chef]: (http://www.opscode.com/chef)
-[surfnet]: (http://www.surfnet.nl)
-[vagrant]: (http://vagrantup.com)
-[zilverline]: (http://www.zilverline.com)
+[chef]: http://www.opscode.com/chef
+[surfnet]: http://www.surfnet.nl
+[vagrant]: http://vagrantup.com
+[zilverline]: http://www.zilverline.com
