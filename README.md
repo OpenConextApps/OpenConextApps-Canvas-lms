@@ -16,7 +16,7 @@ To install Vagrant download your OS specific package from [here](http://download
 
 ### Checkout and start VM
 
-    git clone https://github.com/zilverline/chef-canvas.git
+    git clone https://github.com/OpenConextApps/OpenConextApps-Canvas-lms.git
     git submodule init
     git submodule update
     vagrant up
