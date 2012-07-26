@@ -64,7 +64,7 @@ Once the vm is running you can access the Canvas application on port 80, or outs
 Because Canvas is running as a virtual host in Apache, you should create a hosts entry with the vhost name (`canvas.lucid32`, by default).
 
     $ cat /etc/hosts
-    127.0.0.1localhost canvas.lucid32
+    127.0.0.1  localhost  canvas.lucid32
 
 Then it should be possilbe to go with your browser to <http://canvas.lucid32:8080> on your local machine and see the Canvas application.
 
