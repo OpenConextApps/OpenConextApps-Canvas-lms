@@ -6,6 +6,9 @@ normal[:passenger][:root_path] = "/usr/local/rbenv/versions/1.8.7-p358/lib/ruby/
 normal[:passenger][:ruby_bin] = "/usr/local/rbenv/versions/1.8.7-p358/bin/ruby"
 normal[:passenger][:version] = "3.0.13"
 
+default[:canvas][:git][:commit] = "d06a9ec1443e5bca03bdf718ddad65137880c0d6"
+default[:canvas][:git][:repository] = "https://github.com/instructure/canvas-lms.git"
+
 default[:canvas][:dir] = "/opt/canvas"
 default[:canvas][:host] = "canvas.#{node['hostname']}"
 

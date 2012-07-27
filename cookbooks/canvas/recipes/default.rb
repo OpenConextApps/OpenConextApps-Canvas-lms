@@ -22,8 +22,13 @@ end
 
 execute "clone-canvas-repo" do
     user "root"
-    command "git clone https://github.com/instructure/canvas-lms.git #{node[:canvas][:dir]} && chown -R #{node[:canvas][:user]}:#{node[:canvas][:group]} #{node[:canvas][:dir]}"
+    command "git clone #{node[:canvas][:git][:repository]} #{node[:canvas][:dir]} && chown -R #{node[:canvas][:user]}:#{node[:canvas][:group]} #{node[:canvas][:dir]}"
     creates node[:canvas][:dir]
+end
+
+execute "checkout a working version" do
+  cwd node[:canvas][:dir]
+  command "git checkout #{node[:canvas][:git][:commit]}"
 end
 
 rbenv_script "bundle-install" do
